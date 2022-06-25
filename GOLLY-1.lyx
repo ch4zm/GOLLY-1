@@ -1,0 +1,741 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass cmrtechreport
+\begin_preamble
+
+\title{Cellular Automata Primer}
+\author{Ch4zm of Hellmouth}
+\date{\today}
+\reportid{GOLLY-1}
+\version{Version 1}
+\orgurl{https://golly.life}
+
+\orghierarchyfirst{Engineering Division}
+\orghierarchysecond{E Division | Training and Doctrine Command (TRADC)}
+
+\renewcommand\thesection{\arabic{section}}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+What are Automata?
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:What-are-Automata?"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An automaton (singular), or several automata (plural), are loosely defined
+ as state machines.
+ These are mathematical models that are useful for performing computations
+ or for modeling systems that consist of different finite states, and processes
+ that transform the system from one finite state to another.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Definition: 
+\series default
+We can define an automaton as a machine 
+\begin_inset Formula $A$
+\end_inset
+
+ consisting of 
+\begin_inset Formula $n$
+\end_inset
+
+ finite states, denoted 
+\begin_inset Formula $S_{1},S_{2},\dots,S_{n}$
+\end_inset
+
+.
+ The machine has 
+\begin_inset Formula $p$
+\end_inset
+
+ input symbols or parameters 
+\begin_inset Formula $x_{1},x_{2},\dots,x_{p}$
+\end_inset
+
+ and 
+\begin_inset Formula $q$
+\end_inset
+
+ output symbols or parameters 
+\begin_inset Formula $y_{1},y_{2},\dots,y_{q}$
+\end_inset
+
+.
+ There is some discretization of time into units, and the machine transitions
+ from one state to another in the time frame of those time units.
+ The state that a machine will be in at the next time step depends only
+ on its state at the previous time step, and the previous input symbols.
+ The output symbols at a given time step depends only on the current state
+ of the machine.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+In Plain English:
+\series default
+ A state machine, in concrete terms, is pretty straightforward: a state
+ is, simply put, an integer.
+ The simplest (interesting) example of an automaton machine would have 2
+ states, so the state is either 0 or 1.
+ States are finite and discrete, reflected in the fact that the number or
+ numbers in the bag can only take on discrete values, and the number of
+ states must be finite (
+\begin_inset Formula $n$
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Example: 
+\series default
+This description of automata is admittedly abstract, and it can be hard
+ to understand how to apply them concretely.
+ But the usefulness of automata lies precisely in their abstract nature
+ - the model of a finite state machine can be used to model a wide variety
+ of real-world problems, including physical phenomena, population dynamics,
+ traffic flow, crowd dynamics, logistics, transportation, manufacturing,
+ and robotics.
+\end_layout
+
+\begin_layout Standard
+Below, we show an example of an abstract state machine from Moore (which
+ he denotes 
+\begin_inset Quotes eld
+\end_inset
+
+Machine A,
+\begin_inset Quotes erd
+\end_inset
+
+ unrelated to the use of the symbol 
+\begin_inset Formula $A$
+\end_inset
+
+ for automatons).
+ As per the definition above, each combination of state at the previous
+ time step and previous input symbol determines the present state of the
+ machine, and each present state of the machine corresponds to a specific
+ output symbol.
+ All states of the machine can be defined using a pair of tables that enumerate
+ all possibilities for both; these tables can also be visualized using a
+ transition diagram showing different states and transitions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/machine-a-table.png
+	lyxscale 50
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Table definition of Machine A.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/machine-a-diagram.png
+	lyxscale 50
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Transition diagram of Machine A.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+An example automaton, Machine A.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+A Brief and Incomplete History of Automata
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Historical-Notes"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The idea for the cellular automaton comes from Stanislaw Ulam and John von
+ Neumann (Levy 1992), following their work during the early foundations
+ of digital computing in the 1950s (von Neumann 1951, 1956; von Neumann
+ and Burks 1966).
+ Rules, as we saw in the prior section, are mechanisms that describe how
+ an automaton should change over a discrete time step, 
+\begin_inset Formula $t$
+\end_inset
+
+ to 
+\begin_inset Formula $t+1$
+\end_inset
+
+, in response to inputs at a time 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ A cellular automaton also utilizes a neighborhood 
+\begin_inset Formula $N$
+\end_inset
+
+ of neighbor cells, whose states form the 
+\begin_inset Quotes eld
+\end_inset
+
+other information from outside the automaton
+\begin_inset Quotes erd
+\end_inset
+
+ mentioned in the prior section.
+\end_layout
+
+\begin_layout Standard
+Cybernetics, Norbert Weiner, modeling of biologial organisms using state
+ machines.
+ Operations research, chaotic and nonlinear systems, hierarchical complexity.
+ Early military and wargaming applications.
+\end_layout
+
+\begin_layout Section
+What are Cellular Automata?
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:What-are-Cellular-Automata"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/cartesian-grid.png
+	lyxscale 50
+	width 15theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Cartesian geometry
+\begin_inset CommandInset label
+LatexCommand label
+name "subfig:cartesian-grid"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/cartesian-stencil-vonneumann.png
+	lyxscale 50
+	width 15theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+von Neumann neighborhood
+\begin_inset CommandInset label
+LatexCommand label
+name "subfig:cartesian-stencil-vonneumann"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/cartesian-stencil-moore.png
+	lyxscale 50
+	width 15theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Moore neighborhood
+\begin_inset CommandInset label
+LatexCommand label
+name "subfig:cartesian-stencil-moore"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/hex-grid.png
+	lyxscale 50
+	width 15theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Hexagonal geometry
+\begin_inset CommandInset label
+LatexCommand label
+name "subfig:hex-grid"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/hex-stencil-1.png
+	lyxscale 50
+	width 15theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Example neighborhood
+\begin_inset CommandInset label
+LatexCommand label
+name "subfig:hex-stencil-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Two example cellular automata grid geometries and possible neighborhoods.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:two-geoms"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now we can finally get to the core of this report: cellular automata.
+ Expanding on the idea of automata, we can define cellular automata, which
+ consist of a collection or grid of discrete, interconnected cells; each
+ cell is an automaton, with its own set of input parameters and its own
+ unique state.
+ The state of each cell at the next time step is determined by the state
+ of that cell at the current time step, as well as the states of that cell's
+ neighbors.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Definition: 
+\series default
+Expanding on the automaton definition, we can define a cellular automaton
+ 
+\begin_inset Formula $CA$
+\end_inset
+
+ as som grid of 
+\begin_inset Formula $m$
+\end_inset
+
+ cells, where each cell is an interlinked automaton.
+ Each of the 
+\begin_inset Formula $m$
+\end_inset
+
+ cells of the cellular automaton can be in one of 
+\begin_inset Formula $n$
+\end_inset
+
+ finite states, 
+\begin_inset Formula $S_{1},S_{2},\dots,S_{n}$
+\end_inset
+
+, and each cell has its own set of 
+\begin_inset Formula $p$
+\end_inset
+
+ input symbols or parameters 
+\begin_inset Formula $x_{1,}x_{2},\dots,x_{p}$
+\end_inset
+
+, and its own set of 
+\begin_inset Formula $q$
+\end_inset
+
+ output symbols or parameters 
+\begin_inset Formula $y_{1,}y_{2},\dots,y_{q}$
+\end_inset
+
+.
+ By introducing cells, the cellular automaton has a spatial component, in
+ addition to a temporal component - not only time but space is discretized.
+\end_layout
+
+\begin_layout Standard
+We stated in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:What-are-Automata?"
+
+\end_inset
+
+ that the state of an automaton at the next time step depends only on its
+ state at the previous time step, and the previous input symbols.
+ The analogous statement for cellular automata is that the state of a given
+ cell at the next time step depends on that cell's neighbors' states, as
+ well as that cell's own state, at the current timestep.
+\end_layout
+
+\begin_layout Standard
+In fact, the state of a given cell's neighbors is what comprises a cell's
+ 
+\begin_inset Quotes eld
+\end_inset
+
+input symbols
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Formula $x_{1},x_{2,}\dots,x_{p}$
+\end_inset
+
+.
+ Because different grids can have different geometries, and different geometries
+ can have a variety of stencils, cellular automata must define a neighborhood
+ 
+\begin_inset Formula $N$
+\end_inset
+
+.
+ This neighborhood defines how a given cell's neighbors' states determine
+ the state of the given cell at the next time step.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Example:
+\series default
+ Again, the concepts of neighborhoods, input symbols, and geometry can seem
+ a bit abstract, but that abstractness is what makes it so useful.
+ To provide some guidance, we provide some illustrations of different grid
+ geometries and neighborhoods in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:two-geoms"
+
+\end_inset
+
+.
+ Many more exotic 2D stencils are possible (for example, 13-cell stencils),
+ as are more exotic geometries (1D, 2D radial, 3D Cartesian/cylindrical/spherica
+l, etc.).
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document
